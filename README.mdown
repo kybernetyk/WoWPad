@@ -11,6 +11,11 @@ The client app for the iPhone is really simple. It just looks on the local net f
 
 That's all.
 
+### Structure of this repo
+This repo contains two XCode 3.1 projects. One for the mac server app and one for the iphone/ipod client.
+The Mac app was built and tested on OS X 10.6 Snow Leopard.
+The iPhone app was built and tested on an iPod touch 1stgen running 3.1.2.
+
 ### More about AppleScript
 0. There is no magic in the AppleScript. It justs emulates key presses. WoW does not export any AppleScript stuff. We just let the SystemEvents object know that we want the WoW window to receive some keypresses.
 1. The AppleScript approach is really (really!) slow. Just sending Apple Events over the C-API is more than 5000 times faster.
@@ -20,13 +25,19 @@ That's all.
 ### More about the network code
 I wanted things get done so I used NSFileHandle for network data transfer. This is a hack and you should not do this in release applications. NSFileHandle data transfer is not really thread safe (thus the classes are named ServerThread, etc. but they're not multi threaded!) and was only intended to handle Distributed Objects data traffic. You should use real sockets for this stuff. There are great socket wrappers for Obj-C. (In retrospect I should have used them as debugging the NSFileHandle stuff did cost me more time than using BSD sockets.)
 
-### Structure of this repo
-This repo contains two XCode 3.1 projects. One for the mac server app and one for the iphone/ipod client.
-The Mac app was built and tested on OS X 10.6 Snow Leopard.
-The iPhone app was built and tested on an iPod touch 1stgen running 3.1.2.
+### What to do better for a release app?
+0. Ditch AppleScript in favour of Apple Events. 
+1. Implement networking with BSD sockets
+2. Make the app multi threaded
+3. Read the WoW's process memory to send feedback to the client. (Chatlog, char position, health, inventory, etc)
+
+### Hardware used
+Server: iMac 24" early 2008 with 4gb of RAM.
+Client: iPod touch 1st gen
+Network: 54g wlan network with a linksys wrt54gl AP
 
 ### License
-See the LICENSE file. In short: It's a BSD license with attribution. (Means: If you deriver from this work you have to mention me)
+See the LICENSE file. In short: It's a BSD license with attribution. (Means: If you derive from this work you have to mention my name)
 
 ### I want to make this a commercial iPhone app.
 Good luck with that. It's most likely that Activision Blizzard's legal departmen will send you a cease and desist letter. They did it already for non commercial iPhone apps that used their official web APIs. So I think they won't stop at a somewhat hacky approach to remote controll their game.
