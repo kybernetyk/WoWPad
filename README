@@ -1,6 +1,37 @@
+### What is it?
 This is a simple proof of concept app that lets the user controll a WoW-client running on a Mac with a iPhone/iPod Touch.
-
 Its main purpose was to see if the latency in a wifi network would be low enough to allow controlling games over wifi devices.
 
+### How does it work?
+It's a simple client/server model. The server runs on your Mac where also the World of Warcraft client is running. 
 
+When the server process receives commands it parses them and sends appropriate commands to the WoW gameclient. This can be done either over Applescript or over Apple Events. The Applescript path is easy to implement but it's really slow. (Tough it's fast enough for World of Warcraft!). Apple Events on the other hand are faster but they take more work to implement and debug. As this is just a proof of concept I decided to use Applescript. (Applescript takes care of launching and bringing WoW to front - which you would have do yourself when using Apple Events)
 
+The client app for the iPhone is really simple. It just looks on the local net for servers (with Bonjour) and connects to the first found server. On a button tap the app sends simple commands over a socket to the server. There is no sophisticated biderectional communication. The server just answers with an OK if the command was executed.
+
+That's all.
+
+### More about Applescript
+0. There is no magic in the Applescript. It justs emulates key presses. WoW does not export any Applescript stuff. We just let the SystemEvents object know that we want the WoW window to receive some keypresses.
+1. The Applescript approach is really (really!) slow. Just sending Apple Events over the C-API is more than 5000 times faster.
+2. The Applescript code is a mess. It's just a fast hack to get things running. A big script library is loaded on server startup into a string. This string contains some Applescript functions to wrap common tasks (like pressing a key for a time, jumping (in wow), etc). When a command is sent to WoW this library string is copied and your command is appended to this copy and then sent to the Applescript API to execute this.
+3. Yep, it's a real mess. Don't do this if you ever want to release such an app into the public!
+
+### Structure of this repo
+This repo contains two XCode 3.1 projects. One for the mac server app and one for the iphone/ipod client.
+The Mac app was built and tested on OS X 10.6 Snow Leopard.
+The iPhone app was built and tested on an iPod touch 1stgen running 3.1.2.
+
+### License
+See the LICENSE file. In short: It's a BSD license with attribution. (Means: If you deriver from this work you have to mention me)
+
+### I want to make this a commercial iPhone app.
+Good luck with that. It's most likely that Activision Blizzard's legal departmen will send you a cease and desist letter. They did it already for non commercial iPhone apps that used their official web APIs. So I think they won't stop at a somewhat hacky approach to remote controll their game.
+
+But if you like to gamble and need a developer to do all the work for you just contact me. (Nope, I won't work for free.)
+
+### I am Activision Blizzard and want you to rm -rf /
+:(
+
+### Contact
+voidzone at me dot com
