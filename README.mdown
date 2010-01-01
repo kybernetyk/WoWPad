@@ -17,6 +17,9 @@ That's all.
 2. The AppleScript code is a mess. It's just a fast hack to get things running. A big script library is loaded on server startup into a string. This string contains some AppleScript functions to wrap common tasks (like pressing a key for a time, jumping (in wow), etc). When a command is sent to WoW this library string is copied and your command is appended to this copy and then sent to the Applescript API to execute this.
 3. Yep, it's a real mess. Don't do this if you ever want to release such an app into the public!
 
+### More about the network code
+I wanted things get done so I used NSFileHandle for network data transfer. This is a hack and you should not do this in release applications. NSFileHandle data transfer is not really thread safe (thus the classes are named ServerThread, etc. but they're not multi threaded!) and was only intended to handle Distributed Objects data traffic. You should use real sockets for this stuff. There are great socket wrappers for Obj-C. (In retrospect I should have used them as debugging the NSFileHandle stuff did cost me more time than using BSD sockets.)
+
 ### Structure of this repo
 This repo contains two XCode 3.1 projects. One for the mac server app and one for the iphone/ipod client.
 The Mac app was built and tested on OS X 10.6 Snow Leopard.

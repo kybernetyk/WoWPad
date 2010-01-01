@@ -1,0 +1,8 @@
+! For more general information see the repository's README file.
+
+How To: (WoW should be running and your character should be logged in)
+1. Build & Run
+2. Click the Start button
+3. On your iPhone start the iPhone client 
+
+In this project I'm using NSFileHandle to do network data transfer. This is just a hack to get things done fast (well it was intended to - using actual sockets would have been less work and trouble). In a release app you want to use proper Sockets for this. The NSFileHandle works with network traffic but it's not really thread safe and this is abuse as Apple stated that NSFileHandle's network methods are for Distributed Objects only. So: don't try this at home!
