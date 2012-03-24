@@ -42,11 +42,9 @@ See the LICENSE file. In short: It's a BSD license with attribution. (Means: If 
 ### I want to make this a commercial iPhone app.
 Good luck with that. It's most likely that Activision Blizzard's legal departmen will send you a cease and desist letter. They did it already for non commercial iPhone apps that used their official web APIs. So I think they won't stop at a somewhat hacky approach to remote controll their game.
 
-But if you like to gamble and need a developer to do all the work for you just contact me. (Nope, I won't work for free.)
-
 ### I am Activision Blizzard and want you to rm -rf /
 :(
 
 ### Contact
-voidzone@me.com
-[http://nntp.pl/projects/wowpad/](http://nntp.pl/projects/wowpad/)
+leon.szpilewski@gmail.com
+
